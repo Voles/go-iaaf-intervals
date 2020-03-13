@@ -6,6 +6,7 @@ import (
 	"strconv"
 )
 
+// Repetition model
 type Repetition struct {
 	Repeats  int
 	Distance int
@@ -13,6 +14,7 @@ type Repetition struct {
 	Recovery string
 }
 
+// TotalDistance returns the total distance for a repetition
 func (repetition Repetition) TotalDistance() int {
 	return repetition.Repeats * repetition.Distance
 }
@@ -23,6 +25,7 @@ type Set struct {
 	Recovery    string
 }
 
+// TotalDistance returns the total distance for a set
 func (set Set) TotalDistance() int {
 	var result int
 
@@ -33,6 +36,7 @@ func (set Set) TotalDistance() int {
 	return set.Repeats * result
 }
 
+// Parse the notation of an interval
 func Parse(notation string) (Set, error) {
 	var res Set
 	var err error
@@ -54,8 +58,8 @@ func Parse(notation string) (Set, error) {
 func loadGroupedSets(notation string) (Set, error) {
 	var result Set
 
-	grouped_sets_regex := regexp.MustCompile(`(\d+)\s*x\s*\{(.*?)\}\s*\[(.*?)\]`)
-	match := grouped_sets_regex.FindAllStringSubmatch(notation, -1)
+	groupedSetsRegex := regexp.MustCompile(`(\d+)\s*x\s*\{(.*?)\}\s*\[(.*?)\]`)
+	match := groupedSetsRegex.FindAllStringSubmatch(notation, -1)
 
 	if len(match) < 1 {
 		return result, errors.New("not a grouped set")
@@ -75,8 +79,8 @@ func loadGroupedSets(notation string) (Set, error) {
 func loadSet(notation string) (Set, error) {
 	var result Set
 
-	sets_regex := regexp.MustCompile(`(?:(\d+)\s*x\s*)?(\d+\s*x\s*.*)`)
-	match := sets_regex.FindAllStringSubmatch(notation, -1)
+	setsRegex := regexp.MustCompile(`(?:(\d+)\s*x\s*)?(\d+\s*x\s*.*)`)
+	match := setsRegex.FindAllStringSubmatch(notation, -1)
 
 	if len(match) < 1 {
 		return result, errors.New("not a set")
@@ -98,8 +102,8 @@ func loadSet(notation string) (Set, error) {
 func loadRepetitionSet(notation string) (Set, error) {
 	var result Set
 
-	repetition_regex := regexp.MustCompile(`(\d+)\s*x\s*(\d+)\s*\((.*?)\)\s*(?:\[(.*?)(?:\s*&\s*(.*?))?\]\s*)?(?:\[(.*?)\])?`)
-	match := repetition_regex.FindAllStringSubmatch(notation, -1)
+	repetitionRegex := regexp.MustCompile(`(\d+)\s*x\s*(\d+)\s*\((.*?)\)\s*(?:\[(.*?)(?:\s*&\s*(.*?))?\]\s*)?(?:\[(.*?)\])?`)
+	match := repetitionRegex.FindAllStringSubmatch(notation, -1)
 
 	if len(match) < 1 {
 		return result, errors.New("no set")
