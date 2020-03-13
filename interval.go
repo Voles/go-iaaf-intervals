@@ -19,6 +19,7 @@ func (repetition Repetition) TotalDistance() int {
 	return repetition.Repeats * repetition.Distance
 }
 
+// Set model
 type Set struct {
 	Repeats     int
 	Repetitions []Repetition
