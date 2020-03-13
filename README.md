@@ -1,4 +1,4 @@
-# IAAF Intervals
+# IAAF Intervals [![Build Status](https://travis-ci.org/Voles/go-iaaf-intervals.svg?branch=master)](https://travis-ci.org/Voles/go-iaaf-intervals)
 
 Golang (de)serialization of interval notations using the [IAAF Standard Representation of Running Training](http://www.newintervaltraining.com/iaaf-standardised-sessions-www-newintervaltraining-com.pdf).
 
